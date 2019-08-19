@@ -2,9 +2,9 @@
   <div id="app">
     <Search />
       <div class="numRes">showing 20 of {{data.total_results}}</div>
-    <div class="movies">
+    <div @search="this.update($event)" class="movies">
       <Movie
-        v-for="movie in data.results"
+        v-for="movie in data"
         :key="movie.id"
         :title="movie.title"
         :poster="movie.poster_path"
@@ -35,17 +35,26 @@ export default {
     return {
       data: [],
       page: 1,
-      pagi: page => {
-        return page;
-        // this.created()
-      }
+      searchy: []
     };
   },
   created() {
-    const data = fetch(
-      `https://api.themoviedb.org/3/discover/movie?primary_release_year=2019&page=${this.page}&api_key=9084eae9f770e006ebcba95dbd474e28`
-    );
-    data.then(response => response.json()).then(data => (this.data = data)).catch(() => {throw Error});
+    this.getData()
+  },
+  methods: {
+    async getData() {
+      const data = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?primary_release_year=2019&page=1&api_key=9084eae9f770e006ebcba95dbd474e28`
+    ).then(response => response.json()).then(data => this.data = data.results)
+    },
+    pagi(page) {
+        return this.page;
+        // this.created()
+      },
+    update(event) {
+      console.log('in update on app')
+      this.searchy = event
+    }
   }
 };
 </script>
