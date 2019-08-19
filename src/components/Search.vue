@@ -8,7 +8,6 @@ export default {
   data() {
     return {
       search : "",
-      searchdatas: []
     }
   },
   methods: {
@@ -17,7 +16,7 @@ export default {
       },
     async updateData() {
       return await fetch(`https://api.themoviedb.org/3/search/movie?query=${this.search}&api_key=9084eae9f770e006ebcba95dbd474e28`)
-        .then(response => response.json()).then(data =>this.searchdatas = data.results)
+        .then(response => response.json()).then(data =>this.newData = data.results)
     }
     }
 };

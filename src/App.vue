@@ -1,10 +1,22 @@
 <template>
   <div id="app">
     <Search @search="update($event)" />
-      <div class="numRes">showing 20 of {{data.total_results}}</div>
-    <div class="movies">
+      <div class="numRes">Showing 20 of {{total_results}}</div>
+    <div class="movies" >
+      <template v-if="!searchData">
       <Movie
-        v-for="movie in data.results"
+        v-for="movie in initalData.results"
+        :key="movie.id"
+        :title="movie.title"
+        :poster="movie.poster_path"
+        :overview="movie.overview"
+        :release="movie.release_date"
+        :vote_average="movie.vote_average"
+      /> 
+      </template>
+      <template v-else>
+        <Movie
+        v-for="movie in searchData.results"
         :key="movie.id"
         :title="movie.title"
         :poster="movie.poster_path"
@@ -12,6 +24,7 @@
         :release="movie.release_date"
         :vote_average="movie.vote_average"
       />
+      </template>
     </div>
     <div class="pagi">
       <span class="pagi_prev" @click="pagi(page--)">&lt;</span>
@@ -33,9 +46,10 @@ export default {
   },
   data() {
     return {
-      data: [],
+      initialData: [],
       page: 1,
-      searchy: []
+      searchData: [],
+      total_results: 0,
     };
   },
   created() {
@@ -45,14 +59,17 @@ export default {
     async getData() {
       const data = await fetch(
       `https://api.themoviedb.org/3/discover/movie?primary_release_year=2019&page=1&api_key=9084eae9f770e006ebcba95dbd474e28`
-    ).then(response => response.json()).then(data => this.data = data)
+    ).then(response => response.json()).then(data => {
+      this.initalData = data
+      this.total_results = data.total_results
+    })
     },
     pagi(page) {
         return this.page;
-        // this.created()
       },
     update(data) {
-      this.data.results = data
+      this.searchData.results = data
+      this.total_results = data.total_results
     }
   }
 };
@@ -77,6 +94,9 @@ html,body  {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-around;
-
+}
+.numRes {
+  margin: auto;
+  font-size: 1.25rem;
 }
 </style>
