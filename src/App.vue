@@ -42,7 +42,6 @@ export default {
   },
   data() {
     return {
-      initialData: [],
       page: 1,
       data: [],
       total_results: 0,

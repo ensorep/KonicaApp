@@ -1,5 +1,5 @@
 # konica-app
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5f32e8a7-01e9-499e-999b-a81d2dd2cd71/deploy-status)](https://app.netlify.com/sites/konica-movie-app/deploys)
 ## Project setup
 ```
 npm install
