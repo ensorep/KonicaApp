@@ -33,7 +33,6 @@ export default {
 
 <style lang="scss" scoped>
  .movie {
-    background-color: #e2e2e2;
     position: relative;
     border-radius: 3px;
     display: flex;
@@ -48,7 +47,6 @@ export default {
     &_info {
       display: flex;
       flex-direction: column;
-      color: #e2e2e2;
       position: absolute;
       top: 0;
       bottom: 0;
@@ -65,12 +63,15 @@ export default {
       &-overview {
         text-align: left;
         margin: 1rem;
+        height: 60%;
+        overflow: auto;
       }
       &-title {
         margin: 1rem .5rem;
+        font-size: 1.25rem;
       }
       &-release {
-        margin: 1rem 0;
+        // margin: 1rem 0;
       }
       &-voteAvg {
         margin: 1rem;
