@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Search />
+    <Search @search="update($event)" />
       <div class="numRes">showing 20 of {{data.total_results}}</div>
-    <div @search="this.update($event)" class="movies">
+    <div class="movies">
       <Movie
-        v-for="movie in data"
+        v-for="movie in data.results"
         :key="movie.id"
         :title="movie.title"
         :poster="movie.poster_path"
@@ -45,15 +45,14 @@ export default {
     async getData() {
       const data = await fetch(
       `https://api.themoviedb.org/3/discover/movie?primary_release_year=2019&page=1&api_key=9084eae9f770e006ebcba95dbd474e28`
-    ).then(response => response.json()).then(data => this.data = data.results)
+    ).then(response => response.json()).then(data => this.data = data)
     },
     pagi(page) {
         return this.page;
         // this.created()
       },
-    update(event) {
-      console.log('in update on app')
-      this.searchy = event
+    update(data) {
+      this.data.results = data
     }
   }
 };

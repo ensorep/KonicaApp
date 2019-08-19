@@ -8,15 +8,16 @@ export default {
   data() {
     return {
       search : "",
+      searchdatas: []
     }
   },
   methods: {
     async changeData ()  {
-      this.$emit('search', await this.updateData())
+      this.$emit("search", await this.updateData())
       },
     async updateData() {
       return await fetch(`https://api.themoviedb.org/3/search/movie?query=${this.search}&api_key=9084eae9f770e006ebcba95dbd474e28`)
-        .then(response => response.json()).then(data => data.results)
+        .then(response => response.json()).then(data =>this.searchdatas = data.results)
     }
     }
 };
