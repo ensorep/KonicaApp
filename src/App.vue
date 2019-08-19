@@ -1,19 +1,28 @@
 <template>
   <div id="app">
-    <Search/>
+    <Search />
     <div class="movies">
-      <Movie v-for="movie in movies"
-    :key="movie.id" :title="movie.title"
-    :poster="movie.poster_path" :overview="movie.overview"
-    :release="movie.release_date" :vote_average="movie.vote_average"
-    />
-     </div>
+      <Movie
+        v-for="movie in data.results"
+        :key="movie.id"
+        :title="movie.title"
+        :poster="movie.poster_path"
+        :overview="movie.overview"
+        :release="movie.release_date"
+        :vote_average="movie.vote_average"
+      />
+    </div>
+    <div class="pagi">
+      <div class="pagi_prev" @click="pagi(page--)">&lt;</div>
+      Page {{page}} of {{data.totalPages}}
+      <div class="pagi_next" @click="pagi(page++)">&gt;</div>
+    </div>
   </div>
 </template>
 
 <script>
 import Movie from "./components/Movie.vue";
-import Search from "./components/Search.vue"
+import Search from "./components/Search.vue";
 
 export default {
   name: "app",
@@ -21,14 +30,20 @@ export default {
     Search,
     Movie
   },
-  data(){
-    return{
-      movies: []
-    }
+  data() {
+    return {
+      data: [],
+      page: 1,
+      pagi: page => {
+        // this.created()
+      }
+    };
   },
-  created(){
-      const data = fetch('https://api.themoviedb.org/3/discover/movie?primary_release_year=2019/api_key=9084eae9f770e006ebcba95dbd474e28')
-      data.then(response=>response.json()).then(data=>this.movies = data.results)
+  created() {
+    const data = fetch(
+      `https://api.themoviedb.org/3/discover/movie?primary_release_year=2019&page=${page}&api_key=9084eae9f770e006ebcba95dbd474e28`
+    );
+    data.then(response => response.json()).then(data => (this.data = data));
   }
 };
 </script>
@@ -43,7 +58,7 @@ export default {
   margin-top: 60px;
 }
 .movies {
-  display:flex;
+  display: flex;
   width: 100%;
   flex-wrap: wrap;
   align-items: flex-start;
