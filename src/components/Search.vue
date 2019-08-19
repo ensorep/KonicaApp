@@ -1,5 +1,5 @@
 <template>
-  <input v-model="search" type="text" placeholder="Search for movies" />
+  <input id="search" v-model="search" type="text" placeholder="Search for movies" />
 </template>
 
 <script>
@@ -22,3 +22,13 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+#search {
+  padding: 0.5rem 8rem .5rem 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: none;
+}
+</style>

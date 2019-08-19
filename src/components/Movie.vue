@@ -31,18 +31,20 @@ export default {
 
 <style lang="scss" scoped>
  .movie {
+     background-color: #e2e2e2;
+     border-radius: 3px;
      display: flex;
      flex: 1;
      flex-direction: column;
      justify-content: space-evenly;
      margin: 1rem;
-     max-width: 360px;
+     max-width: 330px;
     &_poster {
-        height: 400px;
+        height: 350px;
     }
     &-overview {
-        margin: auto;
         text-align: left;
+        margin: 1rem;
     }
     &-title {
         margin: 1rem 0;
